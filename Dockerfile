@@ -1,7 +1,9 @@
-FROM node:alpine
+FROM amazonlinux:latest
 
-# fit requirements here: https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html
-RUN apk add curl git --no-cache && \
+RUN curl -fsSL https://rpm.nodesource.com/setup_18.x | bash - && \
+    yum install -y nodejs curl git && \
+    yum clean all && \
+    rm -rf /var/cache/yum && \
     corepack enable pnpm
 
 ENTRYPOINT ["bash", "-c"]
